@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import plotly.express as px
+import altair as alt
 
 
 DATA_URL = ('/home/zaki/Documents/Data Science projects/Data-Science-Web-App/Motor_Vehicle_Collisions_-_Crashes.csv')
@@ -72,11 +73,11 @@ layers = [
   "HexagonLayer",
   data=data[['date/time','latitude','longitude']],
   get_position=['longitude','latitude'],
-  radius=100,
+  radius=150,
   extruded= True,
   pickable = True,
   elevation_scale=4,
-  elevation_range=[0,1000],
+  elevation_range=[0,1500],
   ),
 ]
 ))
@@ -107,6 +108,11 @@ st.write(fig)
 
 
 
+st.header("Most 5 common causes of crashes")
+
+
+df2 = data.query("contributing_factor_vehicle_1 != 'Unspecified'").groupby(['contributing_factor_vehicle_1'])['contributing_factor_vehicle_1'].count()
+st.write(df2.sort_values(ascending=False)[:5])
 
 
 
@@ -123,19 +129,15 @@ else :
 
 
 
-st.header("Most 5 times when crashes happens")
-select = st.selectbox('Affected type of people',['Pedestrians','Cyclists','Motorists']) 
+st.header("Most 5 dates when crashes happen")
+select = st.selectbox('Select type of people',['Pedestrians','Cyclists','Motorists']) 
 
 if select == 'Pedestrians':
-    st.write(original_data.query("injured_pedestrians >= 1")[["time/zone","injured_pedestrians"]].sort_values(by=['injured_pedestrians'],ascending= False).dropna(how='any')[:5])
+    st.write(original_data.query("injured_pedestrians >= 1")[["date/time","injured_pedestrians"]].sort_values(by=['injured_pedestrians'],ascending= False).dropna(how='any')[:5])
 elif select == 'Cyclists':
-    st.write(original_data.query("injured_cyclists >= 1")[["ime/zone","injured_cyclists"]].sort_values(by=['injured_cyclists'],ascending= False).dropna(how='any')[:5])
+    st.write(original_data.query("injured_cyclists >= 1")[["date/time","injured_cyclists"]].sort_values(by=['injured_cyclists'],ascending= False).dropna(how='any')[:5])
 else : 
-    st.write(original_data.query("injured_motorists >= 1")[["ime/zone","injured_motorists"]].sort_values(by=['injured_motorists'],ascending= False).dropna(how='any')[:5])    
-
-
-
-
+    st.write(original_data.query("injured_motorists >= 1")[["date/time","injured_motorists"]].sort_values(by=['injured_motorists'],ascending= False).dropna(how='any')[:5])    
 
 
 
@@ -145,11 +147,21 @@ c3 = data['injured_motorists'][:100]
 
 
 
-st.header("line chart of Injured Pedestrians,Injured Cyclists,Injured Motorists")
+st.header("Area chart of Injured Pedestrians, Cyclists, Motorists")
 
-chart_data = pd.DataFrame(  np.array([c1,c2,c3]).reshape(100,3),     columns=['injured_pedestrians', 'injured Cyclists', 'Injured Motorists'])
+chart_data = pd.DataFrame(  np.array([c1,c2,c3]).reshape(100,3),     columns=['Injured Pedestrians', 'Injured Cyclists', 'Injured Motorists'])
 
-st.line_chart(chart_data)
+st.area_chart(chart_data)
+
+
+
+
+
+
+
+
+
+
 
 
     
