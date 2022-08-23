@@ -8,7 +8,8 @@ Data Science Web App with Streamlit and Python
 - Filtering Data and diplaying charts and histograms
 - Plot Filtered Data on a 3D Interactive Map
 
-
+## Screen Record
+![data_science_record](https://user-images.githubusercontent.com/65148928/186269686-3ad85a28-bcd2-4785-8d17-4a20f7475b99.gif)
 
 
 ## Screenshots
