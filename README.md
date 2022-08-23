@@ -3,13 +3,10 @@ Data Science Web App with Streamlit and Python
 
 
 ## Content
-
-
-
-
-## Screen Record
-
-https://user-images.githubusercontent.com/65148928/186266954-24ffb327-047d-460f-8521-ac76b9dbf568.mp4
+- Load the Motor Vehicle Collisions Data from CSV file
+- Visualize Data on a Map
+- Filtering Data and diplaying charts and histograms
+- Plot Filtered Data on a 3D Interactive Map
 
 
 
