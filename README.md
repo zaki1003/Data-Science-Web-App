@@ -1,5 +1,5 @@
 # Data-Science-Web-App
-Data Science Web App with Streamlit and Python
+Data Science Web App created using Streamlit and Python
 
 
 ## Content
